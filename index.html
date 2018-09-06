@@ -1,0 +1,61 @@
+<DOCTYPE! html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Project: Rock Paper Scissors!</title>
+  </head>
+
+  <body>
+    <script>
+
+    let playerScore = 0;
+       let computerScore = 0;
+       let totalRounds = playerScore + computerScore;
+
+       function playerSelect() {
+         let playerInput = prompt("Choose rock, paper or scissors!").toLowerCase();
+         if (playerInput === null || playerInput === undefined) {
+           alert("Please choose rock, paper or scissors.");
+           playerSelect();
+         }
+         return playerInput;
+       }
+
+       function computerPlay() {
+         let list = ["rock", "paper", "scissors"];
+         let computerInput = list[Math.floor(Math.random() * 3)];
+         return computerInput;
+       }
+
+
+       function playRound(playerSelection, computerSelection) {
+
+             if (playerSelection === computerSelection) {
+               return "No one wins! Play again!";
+             } else if (playerSelection === "rock" && computerSelection === "paper" ||
+                        playerSelection === "scissors" && computerSelection === "rock" ||
+                        playerSelection === "paper" && computerSelection === "scissors") {
+               return `You Lose! ${computerSelection} beats ${playerSelection}!`;
+               computerScore++;
+             } else {
+               return `You Win! ${playerSelection} beats ${computerSelection}!`;
+               playerScore++;
+             }
+           }
+
+       function game() {
+         for (let i = 1; i < 4; i++) {
+         console.log("Round " + i);
+         console.log(playRound(playerSelect(), computerPlay()));
+         console.log(`Player ${playerScore} x ${computerScore} Computer`);
+
+         }
+       }
+
+ console.log(game());
+
+    </script>
+
+  </body>
+
+</html>
