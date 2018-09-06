@@ -9,17 +9,9 @@
     <script>
 
     let playerScore = 0;
-       let computerScore = 0;
-       let totalRounds = playerScore + computerScore;
+    let computerScore = 0;
+    let totalRounds = playerScore + computerScore;
 
-       function playerSelect() {
-         let playerInput = prompt("Choose rock, paper or scissors!").toLowerCase();
-         if (playerInput === null || playerInput === undefined) {
-           alert("Please choose rock, paper or scissors.");
-           playerSelect();
-         }
-         return playerInput;
-       }
 
        function computerPlay() {
          let list = ["rock", "paper", "scissors"];
@@ -27,32 +19,32 @@
          return computerInput;
        }
 
-
        function playRound(playerSelection, computerSelection) {
+           if (playerSelection === computerSelection) {
+              return "It\'s a tie! Play again!";
+              } else if (playerSelection === "rock" && computerSelection === "paper" ||
+                         playerSelection === "scissors" && computerSelection === "rock" ||
+                         playerSelection === "paper" && computerSelection === "scissors") {
+                   computerScore++;
+              return `You Lose! ${computerSelection} beats ${playerSelection}!`;
+              } else {
+                playerScore++;
+                return `You Win! ${playerSelection} beats ${computerSelection}!`;
+              }
+              }
 
-             if (playerSelection === computerSelection) {
-               return "No one wins! Play again!";
-             } else if (playerSelection === "rock" && computerSelection === "paper" ||
-                        playerSelection === "scissors" && computerSelection === "rock" ||
-                        playerSelection === "paper" && computerSelection === "scissors") {
-               return `You Lose! ${computerSelection} beats ${playerSelection}!`;
-               computerScore++;
-             } else {
-               return `You Win! ${playerSelection} beats ${computerSelection}!`;
-               playerScore++;
-             }
-           }
+    function game() {
+    let playerInput = "";
 
-       function game() {
-         for (let i = 1; i < 4; i++) {
-         console.log("Round " + i);
-         console.log(playRound(playerSelect(), computerPlay()));
-         console.log(`Player ${playerScore} x ${computerScore} Computer`);
+      for (i = 0; i < 5; i++) {
+        playerInput = prompt("Choose rock, paper or scissors!").toLowerCase();
+        console.log(playRound(playerInput, computerPlay()));
 
-         }
-       }
+      }
 
- console.log(game());
+
+    } //game()
+     console.log(game());
 
     </script>
 
