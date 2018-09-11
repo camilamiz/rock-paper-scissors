@@ -8,16 +8,25 @@
   <body>
     <h1>Let's play Rock, Paper, Scissors!</h1>
     <h4>This is a 5 round game.</h4>
-    <button onclick="game()">Start!</button>
-    <p id="playroundresults"></p>
+    <button onclick="resetGame(); game()" type="reset">Start!</button>
+    <p id="playRoundResults"></p>
     <p id="score"></p>
-    <p id="finalscore"></p>
+    <p id="finalScore"></p>
 
     <script>
 
     let playerScore = 0;
     let computerScore = 0;
     let totalRounds = playerScore + computerScore;
+
+    function resetGame() {
+      playerScore = 0;
+      computerScore = 0;
+      i = 1;
+      playRoundResults.textContent = "";
+      score.textContent = "";
+      finalScore.textContent = "";
+    }
 
 
        function computerPlay() {
@@ -49,16 +58,16 @@
 
       for (i = 1; i < 6; i++) {
         playerInput = prompt("Choose rock, paper or scissors!").toLowerCase();
-        document.getElementById("playroundresults").innerHTML = playRound(playerInput, computerPlay());
+        document.getElementById("playRoundResults").innerHTML = playRound(playerInput, computerPlay());
         document.getElementById("score").innerHTML = `Round ${i}: ` + computerScore + " Computer x Player " + playerScore;
       }
 
       if (computerScore > playerScore) {
-        document.getElementById("finalscore").innerHTML = "You lose! =(";
+        document.getElementById("finalScore").innerHTML = "You lose! =(";
       } else if (computerScore < playerScore) {
-        document.getElementById("finalscore").innerHTML = "You win! =)";
+        document.getElementById("finalScore").innerHTML = "You win! =)";
       } else {
-        document.getElementById("finalscore").innerHTML = "It\'s a tie! Play again!";
+        document.getElementById("finalScore").innerHTML = "It\'s a tie! Play again!";
       }
 
 
