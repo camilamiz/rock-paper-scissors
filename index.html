@@ -8,12 +8,14 @@
   <body>
     <h1>Let's play Rock, Paper, Scissors!</h1>
     <h4>This is a 5 round game.</h4>
-    <button onClick="game()">Start!</button>
-    <p id="playRoundResults"></p>
-    <!-- <p id="score"></p> -->
-    <p id="finalScore"></p>
+    <button onClick="resetResults(); game();">Start!</button>
+    <h3 id="finalScore"></h3>
+    <ul id="playRoundResults"></ul>
 
     <script>
+      let playerScore = 0;
+      let computerScore = 0;
+
       function computerPlay() {
         let list = ["rock", "paper", "scissors"];
         let computerInput = list[Math.floor(Math.random() * list.length)];
@@ -38,16 +40,21 @@
         }
       }
 
-      function game() {
-        let playerScore;
-        let computerScore;
+      function appendResult(playResult) {
+        let ul = document.getElementById('playRoundResults');
+        let li = document.createElement('li');
+        li.appendChild(document.createTextNode(playResult));
+        li.setAttribute('class', 'resultItem');
+        ul.appendChild(li);
+      }
 
+      function game() {
         for (let i = 1; i < 6; i++) {
           let playerInput = prompt("Choose rock, paper or scissors!").toLowerCase();
           let computerSelection = computerPlay();
           let result = playRound(playerInput, computerSelection);
 
-          document.getElementById('playRoundResults').innerHTML = result;
+          appendResult(result);
 
           if (result.includes('Lose')) {
             computerScore++;
@@ -55,18 +62,22 @@
           else if (result.includes('Win')) {
             playerScore++;
           }
+          document.getElementById('finalScore').innerHTML = `Final score: Computer ${computerScore} X ${playerScore} Player`;
         }
-        document.getElementById('finalScore').innerHTML = `Final score: Computer ${computerScore} X ${playerScore} Player`;
       }
 
-      // function resetGame() {
-      //   playerScore = 0;
-      //   computerScore = 0;
-      //   i = 1;
-      //   playRoundResults.textContent = "";
-      //   score.textContent = "";
-      //   finalScore.textContent = "";
-      // }
+      function resetResults() {
+        let ul = document.getElementById('playRoundResults');
+        let lis = document.getElementsByClassName('resultItem');
+        Array.from(lis).forEach(element => {
+          ul.removeChild(element)
+        });
+
+        document.getElementById('finalScore').innerHTML = '';
+
+        playerScore = 0
+        computerScore = 0
+      }
 
     </script>
 
